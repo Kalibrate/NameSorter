@@ -8,16 +8,16 @@ namespace NameSorter.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class SorterController : ControllerBase
     {
         private readonly ISorter _sorter;
 
-        public ValuesController (ISorter sorter)
+        public SorterController(ISorter sorter)
         {
             _sorter = sorter;
         }
 
-        // GET api/values
+        // GET api/Sorter
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
@@ -26,7 +26,7 @@ namespace NameSorter.Controllers
             return Ok(data);
         }
 
-        // GET api/values/5
+        // GET api/Sorter/5
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {

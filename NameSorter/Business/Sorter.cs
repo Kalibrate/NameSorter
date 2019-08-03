@@ -1,4 +1,5 @@
-﻿using NameSorter.Model;
+﻿using Microsoft.Extensions.Configuration;
+using NameSorter.Model;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,10 +9,17 @@ namespace NameSorter.Business
 {
     public class Sorter : ISorter
     {
+        private readonly IConfiguration _config;
+
+        public Sorter(IConfiguration config)
+        {
+            _config = config;
+        }
         public List<string> SortingList()
         {
             var text = new List<string>();
-            string path = @"F:\Benny\003\list.txt";
+            //you can change directory on appsettings.json
+            string path = _config.GetSection("AppSettings:Path").Value;
             List<string> lines = new List<string>();
             if (File.Exists(path))
             {
@@ -52,8 +60,7 @@ namespace NameSorter.Business
                 }
             }
 
-            string Newpath = @"F:\Benny\003\Sorted-list.txt";
-
+            string Newpath = _config.GetSection("AppSettings:NewPath").Value;
             // Create a file to write/overwrite to.
             File.WriteAllLines(Newpath, returndata, Encoding.UTF8);
 
